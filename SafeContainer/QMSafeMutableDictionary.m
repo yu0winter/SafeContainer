@@ -64,6 +64,17 @@
     return count;
 }
 
+- (NSArray *)allKeysForObject:(id)anObject
+{
+    if (!anObject)
+        return @[];
+    
+    [_safeLock lock];
+    id result = [super allKeysForObject:anObject];
+    [_safeLock unlock];
+    return result;
+}
+
 - (id)objectForKey:(id)aKey
 {
     if (!aKey)
